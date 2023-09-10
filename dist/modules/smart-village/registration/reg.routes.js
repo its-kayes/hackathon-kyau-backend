@@ -6,3 +6,4 @@ const reg_controller_1 = require("./reg.controller");
 const router = (0, express_1.Router)();
 exports.SmartVillageRegRoutes = router;
 router.post("/create", reg_controller_1.SmartVillageController.addUser);
+router.post("/login", reg_controller_1.SmartVillageController.login);

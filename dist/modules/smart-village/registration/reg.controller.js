@@ -19,6 +19,7 @@ const catchAsync_1 = __importDefault(require("../../../util/catchAsync"));
 const reg_service_1 = require("./reg.service");
 const AppError_1 = __importDefault(require("../../../errors/AppError"));
 const bcryptjs_1 = __importDefault(require("bcryptjs"));
+const reg_model_1 = require("./reg.model");
 const hashPassword = (password) => __awaiter(void 0, void 0, void 0, function* () {
     const salt = yield bcryptjs_1.default.genSalt(10);
     return yield bcryptjs_1.default.hash(password, salt);
@@ -40,6 +41,18 @@ const addUser = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0
     }
     (0, throwResponse_1.throwResponse)(res, result, http_status_1.default.OK, "User added successfully", true);
 }));
+const login = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email, password } = req.body;
+    const isUser = yield reg_model_1.SmartVillageReg.findOne({ email });
+    if (!isUser) {
+        throw new AppError_1.default("User not found", http_status_1.default.NOT_FOUND);
+    }
+    const isPasswordMatch = yield bcryptjs_1.default.compare(password, isUser.password);
+    if (!isPasswordMatch)
+        throw new AppError_1.default("Password not match", http_status_1.default.BAD_REQUEST);
+    (0, throwResponse_1.throwResponse)(res, isUser, http_status_1.default.OK, "User Login Successfully", true);
+}));
 exports.SmartVillageController = {
     addUser,
+    login,
 };

@@ -1,4 +1,4 @@
-const addCourses = async (data) => {
+const addCourses = async (data: any) => {
   return data;
 };
 
