@@ -5,4 +5,6 @@ const router: Router = Router();
 
 router.post("/create", CoursesController.addCourses);
 
+router.get("/get", CoursesController.getCourses);
+
 export { router as CoursesRoutes };

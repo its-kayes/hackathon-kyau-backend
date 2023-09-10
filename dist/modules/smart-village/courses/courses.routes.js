@@ -6,3 +6,4 @@ const courses_controller_1 = require("./courses.controller");
 const router = (0, express_1.Router)();
 exports.CoursesRoutes = router;
 router.post("/create", courses_controller_1.CoursesController.addCourses);
+router.get("/get", courses_controller_1.CoursesController.getCourses);

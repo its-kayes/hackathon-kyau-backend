@@ -1,5 +1,8 @@
+import { Courses } from "./courses.model";
+
 const addCourses = async (data: any) => {
-  return data;
+  const result = await Courses.create(data);
+  return result;
 };
 
 export const CoursesService = {
